@@ -11,8 +11,6 @@ export default function CityInput({ addCity }) {
     addCity(inputFieldData);
   }
 
-  
-
   return (
     <>
       <form onSubmit={submitHandler}>

@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function CityWeather({ cityList }) {
-  console.log("cityList prop is:", cityList);
-
+export default function Location({ city }) {
   const [currentConditions, setCurrentConditions] = useState({});
   const [isFetching, setisFetching] = useState(false);
   const [error, setError] = useState();
@@ -45,20 +43,19 @@ export default function CityWeather({ cityList }) {
 
   console.log("current conditions is:", currentConditions);
 
-  const citiesList = cityList.map((city, index) => (
-    <div key={index}>
-      {/* <h3>Hardcoded: {city.current}°</h3> */}
-      {/* <h3>Test: {fetchedWeather.current.temperature_2m}°</h3> */}
+  let content;
 
-      {/* <p>Hardcoded: {`H:${city.high}° L:${city.low}°`}</p> */}
+  content = isFetching && <p>Loading...</p>;
+
+  content = !isFetching && (
+    <>
+      <h3>{currentConditions.current.temperature_2m}°</h3>
       <p>
-        Test:{" "}
-        {/* {`H:${fetchedWeather.daily.temperature_2m_max}° L:${fetchedWeather.daily.temperature_2m_min}°`} */}
+        {`H:${currentConditions.daily.temperature_2m_max}° L:${currentConditions.daily.temperature_2m_min}°`}
       </p>
-
       <h4>{city.name}</h4>
-    </div>
-  ));
+    </>
+  );
 
-  return <article>{isFetching ? <p>Loading</p> : citiesList}</article>;
+  return content;
 }
