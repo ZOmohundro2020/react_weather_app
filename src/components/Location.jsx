@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 export default function Location({ city }) {
   const [currentConditions, setCurrentConditions] = useState({});
-  const [isFetching, setisFetching] = useState(false);
+  const [isFetching, setisFetching] = useState(true);
   const [error, setError] = useState();
 
   useEffect(() => {
@@ -45,17 +45,21 @@ export default function Location({ city }) {
 
   let content;
 
-  content = isFetching && <p>Loading...</p>;
+  if (isFetching) {
+    content = <p>Loading...</p>;
+  }
 
-  content = !isFetching && (
-    <>
-      <h3>{currentConditions.current.temperature_2m}°</h3>
-      <p>
-        {`H:${currentConditions.daily.temperature_2m_max}° L:${currentConditions.daily.temperature_2m_min}°`}
-      </p>
-      <h4>{city.name}</h4>
-    </>
-  );
+  if (!isFetching) {
+    content = !isFetching && (
+      <>
+        <h3>{currentConditions.current.temperature_2m}°</h3>
+        <p>
+          {`H:${currentConditions.daily.temperature_2m_max}° L:${currentConditions.daily.temperature_2m_min}°`}
+        </p>
+        <h4>{city.name}</h4>
+      </>
+    );
+  }
 
   return content;
 }
