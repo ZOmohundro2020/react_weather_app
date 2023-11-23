@@ -5,6 +5,9 @@ export default function Location({ city }) {
   const [isFetching, setisFetching] = useState(true);
   const [error, setError] = useState();
 
+  const lat = 45.4112;
+  const long = -75.6981;
+
   useEffect(() => {
     // declare the data fetching function
     const fetchData = async () => {
@@ -12,7 +15,7 @@ export default function Location({ city }) {
 
       try {
         const response = await fetch(
-          "https://api.open-meteo.com/v1/forecast?latitude=45.4112&longitude=-75.6981&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=1"
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=1`
         );
         const data = await response.json();
 
