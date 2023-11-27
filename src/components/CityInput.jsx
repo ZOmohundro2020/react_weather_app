@@ -1,10 +1,12 @@
-import { useState } from "react";
+//import { useState, useRef } from "react";
+import { useRef } from "react";
 import getLatLong from "../util/getLatLong.js";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 export default function CityInput({ addCity }) {
-  const [coordinates, setCoordinates] = useState(); // for testing only
-  const [tempCityData, setTempCityData] = useState(); // for testing only
+  const inputRef = useRef();
+  //const [coordinates, setCoordinates] = useState(); // for testing only
+  //const [tempCityData, setTempCityData] = useState(); // for testing only
 
   function submitHandler(event) {
     event.preventDefault();
@@ -21,23 +23,24 @@ export default function CityInput({ addCity }) {
     async function fetchLatLong(city) {
       //console.log("inside fetchLatLong");
       const newCoords = await getLatLong(city);
-      setCoordinates(newCoords);
+      //setCoordinates(newCoords);
 
       const cityDataModified = {
         name: newCoords.display_name,
         lat: +newCoords.lat,
         lon: +newCoords.lon,
       };
-      setTempCityData(cityDataModified);
+
+      //setTempCityData(cityDataModified);
       addCity(cityDataModified);
     }
 
     fetchLatLong(inputFieldData);
-
-    //addCity(cityDataModified);
+    inputRef.current.value = "";
+    inputRef.current.focus();
   }
-  console.log("coordinates is: ",coordinates); // for testing only
-  console.log("tempCityData is: ",tempCityData); // for testing only
+  //console.log("coordinates is: ",coordinates); // for testing only
+  //console.log("tempCityData is: ",tempCityData); // for testing only
 
   return (
     <>
@@ -49,6 +52,7 @@ export default function CityInput({ addCity }) {
           id="cityInput"
           name="cityInput"
           placeholder="Enter a City"
+          ref={inputRef}
         ></input>
         <button>Add City</button>
       </form>

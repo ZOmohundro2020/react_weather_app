@@ -8,16 +8,25 @@ function App() {
   const [listOfLocations, setListOfLocations] = useState([
     { name: "Initial Test City", lat: 45.4112, lon: -75.6981 },
   ]);
+  const [temperatureUnit, setTemperatureUnit] = useState("fahrenheit");
 
   function updateCities(inputFieldData) {
-    setListOfLocations([
-      {
-        name: inputFieldData.name,
-        lat: inputFieldData.lat,
-        lon: inputFieldData.lon,
-      },
-      ...listOfLocations,
-    ]);
+    
+    let dupeCheck = listOfLocations.findIndex(
+      ({ name }) => name === inputFieldData.name
+    );
+    console.log("dupe check is: ", dupeCheck);
+
+    if (inputFieldData.name && dupeCheck < 0) {
+      setListOfLocations([
+        {
+          name: inputFieldData.name,
+          lat: inputFieldData.lat,
+          lon: inputFieldData.lon,
+        },
+        ...listOfLocations,
+      ]);
+    }
   }
 
   return (
@@ -27,7 +36,7 @@ function App() {
 
       <Header />
       <CityInput addCity={updateCities} />
-      <LocationList listOfLocations={listOfLocations} />
+      <LocationList listOfLocations={listOfLocations} unit={temperatureUnit}/>
     </>
   );
 }

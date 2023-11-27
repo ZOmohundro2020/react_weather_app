@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 
-// to do
-// there is something going on in this file. The listOfLocations prop seems correct.
-// Something keeps currentConditions from grabbing right data.
-// Maybe these need to be held in state? I don't get it.
-// Works on a couple of refreshes. I've seen this before.
+export default function Location({ city, lat, lon, unit }) {
+  let tempUnitString = "";
+  if (unit === "fahrenheit") {
+    tempUnitString = "&temperature_unit=fahrenheit";
+  }
 
-export default function Location({ city, lat, lon }) {
+  console.log(tempUnitString);
+
   const [currentConditions, setCurrentConditions] = useState({});
   const [isFetching, setisFetching] = useState(true);
-  const [error, setError] = useState();
-
+  const [error, setError] = useState(null);
 
   console.log("lat,long", lat, lon);
+
+  // temperature_unit=fahrenheit
 
   useEffect(() => {
     // declare the data fetching function
@@ -21,15 +23,16 @@ export default function Location({ city, lat, lon }) {
 
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=America%2FNew_York&forecast_days=1`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&timezone=America%2FNew_York&forecast_days=1`
         );
-        const data = await response.json();
 
         if (!response.ok) {
           throw new Error("failed to load data");
         }
 
-        setCurrentConditions({ ...data });
+        const data = await response.json();
+
+        setCurrentConditions({ ...data }); // to do: fix this so it doesn't add data if bad response
       } catch (error) {
         setError(error.message);
       }
