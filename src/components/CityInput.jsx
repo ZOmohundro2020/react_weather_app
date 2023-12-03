@@ -20,8 +20,9 @@ export default function CityInput({ addCity }) {
       return;
     }
 
+    // add regex?
+
     async function fetchLatLong(city) {
-      //console.log("inside fetchLatLong");
       const newCoords = await getLatLong(city);
       //setCoordinates(newCoords);
 

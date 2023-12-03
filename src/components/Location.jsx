@@ -15,6 +15,7 @@ function weatherCodeHelper(isoDateString, offset, weatherCode) {
   const isDaytime = hoursLocal >= 6 && hoursLocal < 18; // Assuming daytime is from 6 AM to 6 PM
 
   const dayOrNight = isDaytime ? "day" : "night";
+  console.log(dayOrNight);
   return getWeatherCodeString(weatherCode, dayOrNight);
 }
 
@@ -39,7 +40,7 @@ export default function Location({ city, lat, lon, unit }) {
   //console.log("lat,long", lat, lon);
 
   useEffect(() => {
-    // declare the data fetching function
+    
     const fetchData = async () => {
       setisFetching(true);
 
@@ -56,7 +57,7 @@ export default function Location({ city, lat, lon, unit }) {
 
         setCurrentConditions({ ...data });
       } catch (error) {
-        setError(error.message);
+        setError(error.message); //to-do: add better error handling
       }
 
       // console.log(data);
@@ -113,17 +114,3 @@ export default function Location({ city, lat, lon, unit }) {
   return content;
 }
 
-//original content code
-/* <>
-<h3>
-  {currentConditions.current.temperature_2m}°{tempDisplayUnit}
-</h3>
-<p>
-  {`H:${currentConditions.daily.temperature_2m_max}° L:${currentConditions.daily.temperature_2m_min}°`}
-</p>        
-<p>
-  {description.description}
-</p>
-<img src={description.image} alt="current weather image"></img>
-<h4>{city}</h4>
-</> */
