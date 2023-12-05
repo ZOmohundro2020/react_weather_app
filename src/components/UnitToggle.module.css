@@ -32,11 +32,11 @@
   transition: 0.4s;
 }
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #d9e7f2;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196f3;
+  box-shadow: 0 0 1px #d9e7f2;
 }
 
 input:checked + .slider:before {
@@ -55,9 +55,9 @@ input:checked + .slider:before {
 }
 
 .unitContainer {
-   display: flex;
-   gap: 10px;
-   align-items: center;
-   align-self: center;
-   justify-content: flex-end;
- }
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  align-self: center;
+  justify-content: flex-end;
+}

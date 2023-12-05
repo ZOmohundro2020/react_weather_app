@@ -5,7 +5,7 @@ export default function UnitToggle({ updateUnit }) {
   const inputRef = useRef();
 
   function clickHandler() {
-    console.log(inputRef.current.checked);
+    //console.log(inputRef.current.checked);
     updateUnit(inputRef.current.checked);
   }
 
@@ -14,7 +14,7 @@ export default function UnitToggle({ updateUnit }) {
       <div>C</div>
       <div>
         <label className={classes.switch}>
-          <input type="checkbox" ref={inputRef} onClick={clickHandler} />
+          <input type="checkbox" defaultChecked={true} ref={inputRef} onClick={clickHandler} />
           <span className={`${classes.slider} ${classes.round}`}></span>
         </label>
       </div>

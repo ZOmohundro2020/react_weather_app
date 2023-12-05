@@ -15,7 +15,7 @@ function weatherCodeHelper(isoDateString, offset, weatherCode) {
   const isDaytime = hoursLocal >= 6 && hoursLocal < 18; // Assuming daytime is from 6 AM to 6 PM
 
   const dayOrNight = isDaytime ? "day" : "night";
-  console.log(dayOrNight);
+  //console.log(dayOrNight);
   return getWeatherCodeString(weatherCode, dayOrNight);
 }
 

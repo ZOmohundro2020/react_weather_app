@@ -1,9 +1,14 @@
 //import { useState, useRef } from "react";
-import { useRef } from "react";
+import { useState, useRef } from "react";
 import getLatLong from "../util/getLatLong.js";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
+function isError(obj) {
+  return Object.prototype.toString.call(obj) === "[object Error]";
+}
+
 export default function CityInput({ addCity }) {
+  const [error, setError] = useState(null);
   const inputRef = useRef();
   //const [coordinates, setCoordinates] = useState(); // for testing only
   //const [tempCityData, setTempCityData] = useState(); // for testing only
@@ -24,6 +29,15 @@ export default function CityInput({ addCity }) {
 
     async function fetchLatLong(city) {
       const newCoords = await getLatLong(city);
+      const checkForError = isError(newCoords);
+      console.log(checkForError);
+      if (checkForError) {
+        setError(newCoords);
+        return;
+      }
+
+      console.log("new coords is: ", newCoords);
+      console.log(typeof newCoords);
       //setCoordinates(newCoords);
 
       const cityDataModified = {
@@ -34,6 +48,7 @@ export default function CityInput({ addCity }) {
 
       //setTempCityData(cityDataModified);
       addCity(cityDataModified);
+      setError(null);
     }
 
     fetchLatLong(inputFieldData);
@@ -57,6 +72,7 @@ export default function CityInput({ addCity }) {
         ></input>
         <button>Add City</button>
       </form>
+      {error ? <p>Error: {error.message} </p> : null}
     </>
   );
 }
