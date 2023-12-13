@@ -36,6 +36,20 @@ function App() {
       : setTemperatureUnit("celsius");
   }
 
+  //todo: figure out why this doesn't trigger a re-render
+  function removeLocation(location) {
+    console.log("inside App removeLocation, location is: ", location);
+    let findExisting = listOfLocations.findIndex(
+      (city) => location.lat === city.lat
+    );
+    console.log(findExisting);
+
+    let newArray = [...listOfLocations];
+    newArray.splice(findExisting, 1);
+    console.log(newArray);
+    setListOfLocations(newArray);
+  }
+
   return (
     <>
       {/* {import.meta.env.VITE_SECRET_KEY}
@@ -44,7 +58,11 @@ function App() {
       <Header />
       <UnitToggle updateUnit={updateUnit} />
       <CityInput addCity={updateCities} />
-      <LocationList listOfLocations={listOfLocations} unit={temperatureUnit} />
+      <LocationList
+        listOfLocations={listOfLocations}
+        removeLocation={removeLocation}
+        unit={temperatureUnit}
+      />
     </>
   );
 }

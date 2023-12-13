@@ -25,7 +25,7 @@ function getWeatherCodeString(weatherCode, timeOfDay) {
   return jsonData[weatherCode][timeOfDay];
 }
 
-export default function Location({ city, lat, lon, unit }) {
+export default function Location({ city, lat, lon, unit, removeLocation }) {
   let tempUnitString = "";
   let tempDisplayUnit = "C";
   if (unit === "fahrenheit") {
@@ -40,13 +40,12 @@ export default function Location({ city, lat, lon, unit }) {
   //console.log("lat,long", lat, lon);
 
   useEffect(() => {
-    
     const fetchData = async () => {
       setisFetching(true);
 
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&timezone=America%2FNew_York&forecast_days=1`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&timezone=America%2FNew_York&forecast_days=5`
         );
 
         if (!response.ok) {
@@ -78,6 +77,11 @@ export default function Location({ city, lat, lon, unit }) {
 
   console.log("current conditions is:", currentConditions);
 
+  function deleteHandler() {
+    console.log("delete clicked");
+    removeLocation({ lat, lon });
+  }
+
   let content;
 
   //to do: fix issue when loading additional cities.
@@ -99,13 +103,21 @@ export default function Location({ city, lat, lon, unit }) {
             {currentConditions.current.temperature_2m}°{tempDisplayUnit}
           </h3>
           <p>
-            {`H:${currentConditions.daily.temperature_2m_max}° L:${currentConditions.daily.temperature_2m_min}°`}
+            {`H:${currentConditions.daily.temperature_2m_max[0]}° L:${currentConditions.daily.temperature_2m_min[0]}°`}
           </p>
           <h4>{city}</h4>
         </div>
         <div>
-          <img src={description.image} alt="current weather image"></img>
+          <img
+            src={description.image}
+            alt={`Weather icon: ${description.description}`}
+          ></img>
           <p>{description.description}</p>
+        </div>
+        <div>
+          <button type="button" onClick={deleteHandler}>
+            x
+          </button>
         </div>
       </div>
     );
@@ -113,4 +125,3 @@ export default function Location({ city, lat, lon, unit }) {
 
   return content;
 }
-

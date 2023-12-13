@@ -14,7 +14,7 @@ export default function UnitToggle({ updateUnit }) {
       <div>C</div>
       <div>
         <label className={classes.switch}>
-          <input type="checkbox" defaultChecked={true} ref={inputRef} onClick={clickHandler} />
+          <input name="unitCheckbox" type="checkbox" defaultChecked={true} ref={inputRef} onClick={clickHandler} />
           <span className={`${classes.slider} ${classes.round}`}></span>
         </label>
       </div>

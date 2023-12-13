@@ -17,7 +17,7 @@ export default function CityInput({ addCity }) {
     event.preventDefault();
 
     const fd = new FormData(event.target);
-    const inputFieldData = fd.get("cityInput");
+    let inputFieldData = fd.get("cityInput");
     // console.log("input is:", inputFieldData);
     // console.log(inputFieldData.trim().length);
 
@@ -25,19 +25,17 @@ export default function CityInput({ addCity }) {
       return;
     }
 
-    // add regex?
+    // remove all non letters or numbers
+    inputFieldData = inputFieldData.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
 
     async function fetchLatLong(city) {
       const newCoords = await getLatLong(city);
       const checkForError = isError(newCoords);
-      console.log(checkForError);
       if (checkForError) {
         setError(newCoords);
         return;
       }
 
-      console.log("new coords is: ", newCoords);
-      console.log(typeof newCoords);
       //setCoordinates(newCoords);
 
       const cityDataModified = {
