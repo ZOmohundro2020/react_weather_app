@@ -1,8 +1,11 @@
-export default function Header() {
+export default function Header({ listOfLocations }) {
+  
+  const hasLocations = listOfLocations.length > 0;  
+
   return (
     <header>
       <h2>My Weather App</h2>
-      <p>Enter a location to get started</p>
+      {!hasLocations && <p>Enter a location to get started</p>}
     </header>
   );
 }

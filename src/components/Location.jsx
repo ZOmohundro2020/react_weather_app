@@ -78,7 +78,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
   console.log("current conditions is:", currentConditions);
 
   function deleteHandler() {
-    console.log("delete clicked");
+    //console.log("delete clicked");
     removeLocation({ lat, lon });
   }
 

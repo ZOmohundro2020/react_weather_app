@@ -1,4 +1,3 @@
-//import { useState, useRef } from "react";
 import { useState, useRef } from "react";
 import getLatLong from "../util/getLatLong.js";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -10,16 +9,12 @@ function isError(obj) {
 export default function CityInput({ addCity }) {
   const [error, setError] = useState(null);
   const inputRef = useRef();
-  //const [coordinates, setCoordinates] = useState(); // for testing only
-  //const [tempCityData, setTempCityData] = useState(); // for testing only
 
   function submitHandler(event) {
     event.preventDefault();
 
     const fd = new FormData(event.target);
     let inputFieldData = fd.get("cityInput");
-    // console.log("input is:", inputFieldData);
-    // console.log(inputFieldData.trim().length);
 
     if (inputFieldData.trim().length < 1) {
       return;
@@ -36,15 +31,12 @@ export default function CityInput({ addCity }) {
         return;
       }
 
-      //setCoordinates(newCoords);
-
       const cityDataModified = {
         name: newCoords.display_name,
         lat: +newCoords.lat,
         lon: +newCoords.lon,
       };
 
-      //setTempCityData(cityDataModified);
       addCity(cityDataModified);
       setError(null);
     }
@@ -53,11 +45,9 @@ export default function CityInput({ addCity }) {
     inputRef.current.value = "";
     inputRef.current.focus();
   }
-  //console.log("coordinates is: ",coordinates); // for testing only
-  //console.log("tempCityData is: ",tempCityData); // for testing only
 
   return (
-    <>
+    <div>
       <form onSubmit={submitHandler}>
         <label htmlFor="cityInput">
           <FaMagnifyingGlass />
@@ -71,6 +61,6 @@ export default function CityInput({ addCity }) {
         <button>Add City</button>
       </form>
       {error ? <p>Error: {error.message} </p> : null}
-    </>
+    </div>
   );
 }

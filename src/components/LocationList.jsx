@@ -21,5 +21,5 @@ export default function LocationList({
     />
   ));
 
-  return <article>{allLocations}</article>;
+  return <section>{allLocations}</section>;
 }

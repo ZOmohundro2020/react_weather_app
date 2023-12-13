@@ -7,7 +7,7 @@ export default async function getLatLong(cityName) {
     const data = await response.json();
     console.log("inside getLatLong, got data");
     console.log(data);
-    console.log(data.length);
+    //console.log(data.length);
 
     if (!response.ok) {
       throw new Error("Failed to load data");
@@ -17,6 +17,7 @@ export default async function getLatLong(cityName) {
       throw new Error("Invalid city");
     }
 
+    // filters out results to top result (most likely what the user was after if vague input was given)
     const reducedData = data.reduce(function (prev, current) {
       return prev && prev.importance > current.importance ? prev : current;
     });
