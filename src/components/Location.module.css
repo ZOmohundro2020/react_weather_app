@@ -1,4 +1,4 @@
-.flex-container {
+/* .flex-container {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -7,4 +7,52 @@
   align-content: stretch;
   border: 1px solid;
   margin: 1rem;
+} */
+
+.gridContainer {
+  border: 1px solid;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 0.5fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    "temps temps icons"
+    "temps temps icons"
+    "city city city";
+}
+
+.temps {
+  grid-area: temps;
+  justify-self: center;
+  align-self: center;
+  border: 1px solid;
+}
+
+.icons {
+  grid-area: icons;
+  justify-self: center;
+  align-self: center;
+  border: 1px solid;
+}
+
+.city {
+  grid-area: city;
+  margin: 0.5em 2em;
+  border: 1px solid;
+}
+
+.city h4 {
+  padding: 1em;
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+
+.deleteBtn button {
+  height: 5px;
+  width: 5px;
 }

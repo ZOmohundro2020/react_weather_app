@@ -97,30 +97,58 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
       currentConditions.current.weather_code
     );
     content = !isFetching && (
-      <div className={classes["flex-container"]}>
-        <div>
+      <div className={classes["gridContainer"]}>
+        <div className={classes["deleteBtn"]}>
+          <button type="button" onClick={deleteHandler}>
+            <span>X</span>
+          </button>
+        </div>
+        <div className={classes["temps"]}>
           <h3>
             {currentConditions.current.temperature_2m}°{tempDisplayUnit}
           </h3>
           <p>
             {`H:${currentConditions.daily.temperature_2m_max[0]}° L:${currentConditions.daily.temperature_2m_min[0]}°`}
           </p>
-          <h4>{city}</h4>
         </div>
-        <div>
+        <div className={classes["icons"]}>
           <img
             src={description.image}
             alt={`Weather icon: ${description.description}`}
           ></img>
           <p>{description.description}</p>
         </div>
-        <div>
-          <button type="button" onClick={deleteHandler}>
-            x
-          </button>
+        <div className={classes["city"]}>
+          <h4>{city}</h4>
         </div>
       </div>
     );
+
+    // content = !isFetching && (
+    //   <div className={classes["flex-container"]}>
+    //     <div>
+    //       <h3>
+    //         {currentConditions.current.temperature_2m}°{tempDisplayUnit}
+    //       </h3>
+    //       <p>
+    //         {`H:${currentConditions.daily.temperature_2m_max[0]}° L:${currentConditions.daily.temperature_2m_min[0]}°`}
+    //       </p>
+    //       <h4>{city}</h4>
+    //     </div>
+    //     <div>
+    //       <img
+    //         src={description.image}
+    //         alt={`Weather icon: ${description.description}`}
+    //       ></img>
+    //       <p>{description.description}</p>
+    //     </div>
+    //     <div>
+    //       <button type="button" onClick={deleteHandler}>
+    //         x
+    //       </button>
+    //     </div>
+    //   </div>
+    // );
   }
 
   return content;

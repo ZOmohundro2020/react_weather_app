@@ -5,11 +5,7 @@ export default function LocationList({
   removeLocation,
   unit,
 }) {
-  //console.log("listOfLocations prop is:", listOfLocations);
-  //console.log('inside locationlist, temp unit is: ',unit);
-
   const allLocations = listOfLocations.map((city, index) => (
-    // turn this into a new component
     <Location
       key={index}
       myKey={index}
