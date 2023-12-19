@@ -104,19 +104,22 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
           </button>
         </div>
         <div className={classes["temps"]}>
-          <h3>
-            {currentConditions.current.temperature_2m}°{tempDisplayUnit}
-          </h3>
-          <p>
-            {`H:${currentConditions.daily.temperature_2m_max[0]}° L:${currentConditions.daily.temperature_2m_min[0]}°`}
-          </p>
+          <div>
+            <br></br>
+            <h3>
+              {currentConditions.current.temperature_2m}°{tempDisplayUnit}
+            </h3>
+            <p>
+              {`H:${currentConditions.daily.temperature_2m_max[0]}° L:${currentConditions.daily.temperature_2m_min[0]}°`}
+            </p>
+          </div>
         </div>
         <div className={classes["icons"]}>
           <img
             src={description.image}
             alt={`Weather icon: ${description.description}`}
           ></img>
-          <p>{description.description}</p>
+          <span>{description.description}</span>
         </div>
         <div className={classes["city"]}>
           <h4>{city}</h4>

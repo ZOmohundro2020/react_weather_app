@@ -53,8 +53,8 @@ function App() {
       {/* {import.meta.env.VITE_SECRET_KEY}
       {import.meta.env.MY_KEY} */}
 
-      <Header listOfLocations={listOfLocations} />
       <UnitToggle updateUnit={updateUnit} />
+      <Header listOfLocations={listOfLocations} />
       <CityInput addCity={updateCities} />
       <LocationList
         listOfLocations={listOfLocations}
