@@ -121,6 +121,52 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
           ></img>
           <span>{description.description}</span>
         </div>
+        <div className={classes["forecast"]}>
+          <div>
+            <span>20 | 12</span>
+            <img
+              src={description.image}
+              alt={`Weather icon: ${description.description}`}
+            ></img>
+            <span>Mo</span>
+          </div>
+          <div>
+            {" "}
+            <span>20 | 12</span>
+            <img
+              src={description.image}
+              alt={`Weather icon: ${description.description}`}
+            ></img>
+            Tu
+          </div>
+          <div>
+            {" "}
+            <span>20 | 12</span>
+            <img
+              src={description.image}
+              alt={`Weather icon: ${description.description}`}
+            ></img>
+            We
+          </div>
+          <div>
+            {" "}
+            <span>20 | 12</span>
+            <img
+              src={description.image}
+              alt={`Weather icon: ${description.description}`}
+            ></img>
+            Th
+          </div>
+          <div>
+            {" "}
+            <span>20 | 12</span>
+            <img
+              src={description.image}
+              alt={`Weather icon: ${description.description}`}
+            ></img>
+            Fr
+          </div>
+        </div>
         <div className={classes["city"]}>
           <h4>{city}</h4>
         </div>
