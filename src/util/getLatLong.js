@@ -1,7 +1,10 @@
 export default async function getLatLong(cityName) {
+  
+  const API_KEY = import.meta.env.VITE_GEOCODE_MAPS_API_KEY
+  
   try {
     const response = await fetch(
-      `https://geocode.maps.co/search?q=${cityName}`
+      `https://geocode.maps.co/search?q=${cityName}&api_key=${API_KEY}`
     );
     console.log(response);
     const data = await response.json();
@@ -22,7 +25,7 @@ export default async function getLatLong(cityName) {
       return prev && prev.importance > current.importance ? prev : current;
     });
 
-    console.log('reduced data: ',reducedData);
+    console.log("reduced data: ", reducedData);
 
     return reducedData;
   } catch (error) {

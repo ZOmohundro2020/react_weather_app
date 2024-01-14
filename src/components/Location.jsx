@@ -3,18 +3,31 @@ import jsonData from "../util/weatherCodes.json";
 import classes from "./Location.module.css";
 
 // iso date helper function
-function weatherCodeHelper(isoDateString, offset, weatherCode) {
+function weatherCodeHelper(isoDateString, offset, weatherCode, is_day) {
   const date = new Date(isoDateString);
   const hoursUTC = date.getUTCHours();
+
+  //testing
+  //const minutesUTC = date.getUTCMinutes();
+  //const
+  console.log("date is: ", date);
+
+  // to do
+
+  // fix this so it reflects actual location time. seems to always be based on my local time.
+
   const offsetMinutes = offset / 60;
   const hoursLocal = hoursUTC + offsetMinutes / 60;
-  //console.log("offset, offset minutes", offset, offsetMinutes);
-  //console.log("hoursLocal: ", hoursLocal);
+  console.log("offset, offset minutes", offset, offsetMinutes);
+  console.log("hoursLocal: ", hoursLocal);
+
+  let dayOrNight = is_day;
+  dayOrNight ? (dayOrNight = "day") : (dayOrNight = "night");
 
   // Check if it's day or night based on the local hours
-  const isDaytime = hoursLocal >= 6 && hoursLocal < 18; // Assuming daytime is from 6 AM to 6 PM
+  // const isDaytime = hoursLocal >= 6 && hoursLocal < 18; // Assuming daytime is from 6 AM to 6 PM
 
-  const dayOrNight = isDaytime ? "day" : "night";
+  // const dayOrNight = isDaytime ? "day" : "night";
   //console.log(dayOrNight);
   return getWeatherCodeString(weatherCode, dayOrNight);
 }
@@ -45,7 +58,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
 
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&timezone=America%2FNew_York&forecast_days=5`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&forecast_days=5`
         );
 
         if (!response.ok) {
@@ -94,7 +107,8 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
     let description = weatherCodeHelper(
       currentConditions.current.time,
       currentConditions.utc_offset_seconds,
-      currentConditions.current.weather_code
+      currentConditions.current.weather_code,
+      currentConditions.current.is_day
     );
     content = !isFetching && (
       <div className={classes["gridContainer"]}>
