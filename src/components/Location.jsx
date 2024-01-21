@@ -10,16 +10,17 @@ function weatherCodeHelper(isoDateString, offset, weatherCode, is_day) {
   //testing
   //const minutesUTC = date.getUTCMinutes();
   //const
-  console.log("date is: ", date);
+  //console.log("date is: ", date);
 
   // to do
 
   // fix this so it reflects actual location time. seems to always be based on my local time.
+  // not currently using this section. has been replaced by API is_day
 
   const offsetMinutes = offset / 60;
   const hoursLocal = hoursUTC + offsetMinutes / 60;
-  console.log("offset, offset minutes", offset, offsetMinutes);
-  console.log("hoursLocal: ", hoursLocal);
+  //console.log("offset, offset minutes", offset, offsetMinutes);
+  //console.log("hoursLocal: ", hoursLocal);
 
   let dayOrNight = is_day;
   dayOrNight ? (dayOrNight = "day") : (dayOrNight = "night");
@@ -36,6 +37,34 @@ function getWeatherCodeString(weatherCode, timeOfDay) {
   //console.log(timeOfDay);
   //console.log(typeof timeOfDay);
   return jsonData[weatherCode][timeOfDay];
+}
+
+function dayOfWeekHelper(offset) {
+  const date = new Date();
+
+  const daysOfWeek = [
+    "Su",
+    "Mo",
+    "Tu",
+    "We",
+    "Th",
+    "Fr",
+    "Sa",
+  ];
+
+  let currentDayOfWeek = date.getDay();
+
+  if (currentDayOfWeek + offset == 7) {
+    currentDayOfWeek = 0;
+    offset = 0;
+  } else if (currentDayOfWeek + offset > 6) {
+    currentDayOfWeek = -1;
+  }
+
+  let targetDay = currentDayOfWeek + offset;
+
+  const dayString = daysOfWeek[targetDay];
+  return dayString;
 }
 
 export default function Location({ city, lat, lon, unit, removeLocation }) {
@@ -142,7 +171,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
               src={description.image}
               alt={`Weather icon: ${description.description}`}
             ></img>
-            <span>Mo</span>
+            <span>{dayOfWeekHelper(0)}</span>
           </div>
           <div>
             {" "}
@@ -151,7 +180,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
               src={description.image}
               alt={`Weather icon: ${description.description}`}
             ></img>
-            Tu
+            <span>{dayOfWeekHelper(1)}</span>
           </div>
           <div>
             {" "}
@@ -160,7 +189,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
               src={description.image}
               alt={`Weather icon: ${description.description}`}
             ></img>
-            We
+            <span>{dayOfWeekHelper(2)}</span>
           </div>
           <div>
             {" "}
@@ -169,7 +198,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
               src={description.image}
               alt={`Weather icon: ${description.description}`}
             ></img>
-            Th
+            <span>{dayOfWeekHelper(3)}</span>
           </div>
           <div>
             {" "}
@@ -178,7 +207,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
               src={description.image}
               alt={`Weather icon: ${description.description}`}
             ></img>
-            Fr
+            <span>{dayOfWeekHelper(4)}</span>
           </div>
         </div>
         <div className={classes["city"]}>
