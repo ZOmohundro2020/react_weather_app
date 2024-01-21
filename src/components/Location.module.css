@@ -47,8 +47,6 @@ h4 {
   /* border: 1px solid; */
 }
 
-
-
 .icons span {
   display: flex;
   justify-content: center;
@@ -67,11 +65,9 @@ h4 {
   padding: 1em;
   margin: 0 auto;
   max-width: 70%;
-  
 }
 
 .forecast {
-  
   display: flex;
   margin: 1em 0;
   width: 95%;
@@ -84,8 +80,13 @@ h4 {
 }
 
 .forecast div img {
-  display:block;
+  display: block;
   height: 50px;
+}
+
+.forecast span {
+  display: block;
+  margin: 0;
 }
 
 .deleteBtn {
@@ -97,4 +98,8 @@ h4 {
 .deleteBtn button {
   height: 5px;
   width: 5px;
+}
+
+.minimums {
+  color:rgb(87, 87, 87)
 }

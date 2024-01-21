@@ -42,15 +42,7 @@ function getWeatherCodeString(weatherCode, timeOfDay) {
 function dayOfWeekHelper(offset) {
   const date = new Date();
 
-  const daysOfWeek = [
-    "Su",
-    "Mo",
-    "Tu",
-    "We",
-    "Th",
-    "Fr",
-    "Sa",
-  ];
+  const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
 
   let currentDayOfWeek = date.getDay();
 
@@ -87,7 +79,7 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
 
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&forecast_days=5`
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min${tempUnitString}&forecast_days=6`
         );
 
         if (!response.ok) {
@@ -166,16 +158,8 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
         </div>
         <div className={classes["forecast"]}>
           <div>
-            <span>20 | 12</span>
-            <img
-              src={description.image}
-              alt={`Weather icon: ${description.description}`}
-            ></img>
-            <span>{dayOfWeekHelper(0)}</span>
-          </div>
-          <div>
-            {" "}
-            <span>20 | 12</span>
+            <span>{`${currentConditions.daily.temperature_2m_max[1]}`}</span>
+            <span className={classes["minimums"]}>{`${currentConditions.daily.temperature_2m_min[1]}`}</span>
             <img
               src={description.image}
               alt={`Weather icon: ${description.description}`}
@@ -184,7 +168,8 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
           </div>
           <div>
             {" "}
-            <span>20 | 12</span>
+            <span>{`${currentConditions.daily.temperature_2m_max[2]}`}</span>
+            <span className={classes["minimums"]}>{`${currentConditions.daily.temperature_2m_min[2]}`}</span>{" "}
             <img
               src={description.image}
               alt={`Weather icon: ${description.description}`}
@@ -193,7 +178,8 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
           </div>
           <div>
             {" "}
-            <span>20 | 12</span>
+            <span>{`${currentConditions.daily.temperature_2m_max[3]}`}</span>
+            <span className={classes["minimums"]}>{`${currentConditions.daily.temperature_2m_min[3]}`}</span>{" "}
             <img
               src={description.image}
               alt={`Weather icon: ${description.description}`}
@@ -202,12 +188,23 @@ export default function Location({ city, lat, lon, unit, removeLocation }) {
           </div>
           <div>
             {" "}
-            <span>20 | 12</span>
+            <span>{`${currentConditions.daily.temperature_2m_max[4]}`}</span>
+            <span className={classes["minimums"]}>{`${currentConditions.daily.temperature_2m_min[4]}`}</span>{" "}
             <img
               src={description.image}
               alt={`Weather icon: ${description.description}`}
             ></img>
             <span>{dayOfWeekHelper(4)}</span>
+          </div>
+          <div>
+            {" "}
+            <span>{`${currentConditions.daily.temperature_2m_max[5]}`}</span>
+            <span className={classes["minimums"]}>{`${currentConditions.daily.temperature_2m_min[5]}`}</span>{" "}
+            <img
+              src={description.image}
+              alt={`Weather icon: ${description.description}`}
+            ></img>
+            <span>{dayOfWeekHelper(5)}</span>
           </div>
         </div>
         <div className={classes["city"]}>
